@@ -1,18 +1,10 @@
 const { expect } = require('chai');
-const { db, models } = require('../server/db');
+const { syncSeed, models } = require('../server/db');
 const { Product } = models;
 
 describe('Product model', () => {
   beforeEach(() => {
-    //QUESTION: Why do both of these have to be returned in order for the 'it' test to wait for the beforeEach's async actions to complete before running?
-    return db.sync({ force: true })
-      .then(() => {
-        return Promise.all([
-          Product.create({ name: 'Drone' }),
-          Product.create({ name: 'Trampoline' }),
-          Product.create({ name: 'Trebuche' }),
-        ])
-      })
+    return syncSeed();
   })
   it('exists', () => {
     expect(Product).to.be.ok;

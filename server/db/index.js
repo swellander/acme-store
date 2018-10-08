@@ -25,8 +25,20 @@ const Order = conn.define('order', {
   }
 })
 
+const syncSeed = async () => {
+  await conn.sync({ force: true })
+  return await Promise.all([
+    Order.create({}),
+    Order.create({}),
+    Order.create({}),
+    Product.create({ name: 'Drone' }),
+    Product.create({ name: 'Trampoline' }),
+    Product.create({ name: 'Trebuche' }),
+  ]);
+}
+
 module.exports = {
-  db: conn,
+  syncSeed,
   models: {
     Product,
     Order,
