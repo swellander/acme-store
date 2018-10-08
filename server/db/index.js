@@ -23,7 +23,18 @@ const Order = conn.define('order', {
     allowNull: false,
     defaultValue: 'CART'
   }
-})
+});
+
+const LineItem = conn.define('lineItem', {
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  }
+});
+
+//ASSOCIATIONS
+//======================================
+Product.hasMany(LineItem);
 
 const syncSeed = async () => {
   await conn.sync({ force: true })
@@ -34,6 +45,9 @@ const syncSeed = async () => {
     Product.create({ name: 'Drone' }),
     Product.create({ name: 'Trampoline' }),
     Product.create({ name: 'Trebuche' }),
+    LineItem.create({ productId: 1 }),
+    LineItem.create({ productId: 2 }),
+    LineItem.create({ productId: 3 })
   ]);
 }
 
@@ -42,5 +56,6 @@ module.exports = {
   models: {
     Product,
     Order,
+    LineItem
   }
 }
