@@ -36,28 +36,31 @@ const LineItem = conn.define('lineItem', {
 //======================================
 Product.hasMany(LineItem);
 LineItem.belongsTo(Product);
+Order.hasMany(LineItem);
+LineItem.belongsTo(Order);
 
 const syncSeed = async () => {
   await conn.sync({ force: true })
-  await Promise.all([
-    Order.create({}),
-    Order.create({}),
-    Order.create({}),
+  const [orderOne, orderTwo, orderThree] = await Promise.all([
+    Order.create({ status: 'CART' }),
+    Order.create({ status: 'ORDER' }),
   ]);
   const [drone, trampoline, trebuche] = await Promise.all([
     Product.create({ name: 'Drone' }),
     Product.create({ name: 'Trampoline' }),
     Product.create({ name: 'Trebuche' }),
   ])
-  const [one, two, three] = await Promise.all([
+  const [itemOne, itemTwo, itemThree] = await Promise.all([
     LineItem.create({ productId: 1 }),
     LineItem.create({ productId: 2 }),
     LineItem.create({ productId: 3 })
   ]);
 
-  one.setProduct(drone);
-  two.setProduct(trampoline);
-  three.setProduct(trebuche);
+  itemOne.setProduct(drone);
+  itemOne.setOrder(orderOne);
+  itemTwo.setProduct(trampoline);
+  itemTwo.setOrder(orderOne);
+  itemThree.setProduct(trebuche);
 }
 
 module.exports = {

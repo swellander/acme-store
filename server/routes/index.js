@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, LineItem } = require('../db').models;
+const { Order, Product, LineItem } = require('../db').models;
 
 router.get('/products', (req, res, next) => {
   Product.findAll({
@@ -17,6 +17,23 @@ router.post('/products', (req, res, next) => {
       res.json(newProduct);
     })
     .catch(next);
+});
+
+//TODO: think about how to write this route with a promise chain
+router.get('/orders', async (req, res, next) => {
+  const cart = await Order.findOne({
+    where: {
+      status: 'CART'
+    }
+  });
+
+  if (!cart) await Order.create({})
+
+  const orders = await Order.findAll({
+    include: [LineItem]
+  })
+
+  res.json(orders);
 })
 
 module.exports = router;

@@ -9,7 +9,7 @@ describe('Order model', () => {
   it('exists', () => {
     expect(Order).to.be.ok;
     return Order.findAll()
-      .then(orders => expect(orders.length).to.equal(3))
+      .then(orders => expect(orders.length).to.equal(2))
   });
 
   it('has a status', () => {

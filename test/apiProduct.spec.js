@@ -5,7 +5,7 @@ const { Product } = models;
 const request = require('supertest');
 const app = request(require('../server/app'));
 
-describe('Products api route', () => {
+describe('/api/products', () => {
   beforeEach(() => syncSeed())
   it('returns list of products and their associated line items', () => {
     return app.get('/api/products')
