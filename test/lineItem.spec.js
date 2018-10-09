@@ -6,7 +6,6 @@ describe('LineItem model', () => {
   beforeEach(() => {
     return syncSeed();
   })
-
   it('has a quantity', () => {
     return LineItem.findOne()
       .then(item => {

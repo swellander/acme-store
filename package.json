@@ -4,13 +4,16 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "nodemon node_modules/.bin/mocha"
+    "test": "nodemon node_modules/.bin/mocha",
+    "start:dev": "nodemon server"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^5.2.0"
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "pg": "^7.5.0",
     "sequelize": "^4.39.0"
   }

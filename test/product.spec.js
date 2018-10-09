@@ -25,7 +25,7 @@ describe('Product model', () => {
       })
   });
   it('must have unique name', () => {
-    Product.create({ name: 'Shoes' })
+    return Product.create({ name: 'Shoes' })
       .then(() => {
         return Product.create({ name: 'Shoes' })
       })
@@ -33,7 +33,7 @@ describe('Product model', () => {
       .catch(err => expect(err.name).to.equal('SequelizeValidationError'))
   });
   it('cannot be empty', () => {
-    Product.create({ name: '' })
+    return Product.create({ name: '' })
       .catch(err => expect(err.name).to.equal('SequelizeValidationError'))
   })
 })
