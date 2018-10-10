@@ -4,6 +4,7 @@ import Nav from './Nav';
 import CartView from './CartView';
 import OrderView from './OrderView';
 import { _loadOrders } from '../store/orders';
+import { _loadProducts } from '../store/products';
 import { connect } from 'react-redux';
 
 class Main extends Component {
@@ -23,7 +24,10 @@ class Main extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    init: () => dispatch(_loadOrders())
+    init: () => {
+      dispatch(_loadOrders())
+      dispatch(_loadProducts())
+    }
   }
 }
 
