@@ -15,6 +15,7 @@
     ]
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
     "supertest": "^3.3.0"
@@ -31,7 +32,10 @@
     "pg": "^7.4.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "sequelize": "^4.38.0",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0"
