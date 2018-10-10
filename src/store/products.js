@@ -26,8 +26,7 @@ const reducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
       return action.products.reduce((memo, product) => {
-        const { id, ...productWithoutId } = product;
-        memo[product.id] = productWithoutId;
+        memo[product.id] = product;
         return memo;
       }, {})
     default:
