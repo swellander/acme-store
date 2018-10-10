@@ -45,5 +45,30 @@ router.put('/orders/:id', (req, res, next) => {
     })
     .catch(next);
 })
+router.post('/orders/:orderId/lineItems', (req, res, next) => {
+  LineItem.create({
+    orderId: req.params.orderId,
+    ...req.body
+  })
+    .then(newLineItem => {
+      res.status(201).json(newLineItem)
+    })
+    .catch(next);
+});
+router.put('/orders/:orderId/lineItems/:id', (req, res, next) => {
+  LineItem.findById(req.params.id)
+    .then(lineItem => lineItem.update(req.body))
+    .then(updatedLineItem => res.status(201).json(updatedLineItem))
+})
+router.delete('/orders/:orderId/lineItems/:id', (req, res, next) => {
+  //QUESTION: why is orderId needed here?
+  LineItem.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(() => res.sendStatus(202))
+    .catch(next)
+});
 
 module.exports = router;

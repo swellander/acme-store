@@ -15,11 +15,6 @@ const Product = conn.define('product', {
 });
 
 const Order = conn.define('order', {
-  id: {
-    type: Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
-    primaryKey: true
-  },
   status: {
     type: Sequelize.ENUM('CART', 'ORDER'),
     allowNull: false,
@@ -51,18 +46,19 @@ const syncSeed = async () => {
     Product.create({ name: 'Drone' }),
     Product.create({ name: 'Trampoline' }),
     Product.create({ name: 'Trebuche' }),
-  ])
+  ]);
   const [itemOne, itemTwo, itemThree] = await Promise.all([
-    LineItem.create({ productId: 1 }),
-    LineItem.create({ productId: 2 }),
-    LineItem.create({ productId: 3 })
+    LineItem.create({ quantity: 1 }),
+    LineItem.create({ quantity: 2 }),
+    LineItem.create({ quantity: 3 })
   ]);
 
-  itemOne.setProduct(drone);
-  itemOne.setOrder(orderOne);
-  itemTwo.setProduct(trampoline);
-  itemTwo.setOrder(orderOne);
-  itemThree.setProduct(trebuche);
+  await itemOne.setProduct(drone);
+  await itemOne.setOrder(orderOne);
+  await itemTwo.setProduct(trampoline);
+  await itemTwo.setOrder(orderOne);
+  await itemThree.setProduct(trebuche);
+  await itemThree.setOrder(orderThree);
 }
 
 module.exports = {
