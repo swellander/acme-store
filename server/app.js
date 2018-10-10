@@ -8,6 +8,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/api', require('./routes'))
+app.use(express.static('public'))
 
 app.get('/', (req, res, next) => {
   res.send('<h1>hey</h1>')
