@@ -1,6 +1,8 @@
 const Sequelize = require('sequelize');
 const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acme-store', { logging: false })
 
+//MODELS
+//================================================
 const Product = conn.define('product', {
   name: {
     type: Sequelize.STRING,

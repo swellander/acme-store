@@ -28,5 +28,22 @@ describe('/api/orders', () => {
         const initialOrder = orders[0];
         expect(initialOrder.status).to.equal('CART')
       });
+  });
+  describe('PUT /api/orders/:id', () => {
+    it('can update an order', () => {
+      return Order.create({})
+        .then(newOrder => {
+          return app.put(`/api/orders/${newOrder.id}`)
+            .send({ status: 'ORDER' })
+            .expect(200)
+            .expect('Content-Type', /json/)
+        })
+        .then(response => {
+          return response.body
+        })
+        .then(updatedOrder => {
+          expect(updatedOrder.status).to.equal('ORDER')
+        })
+    })
   })
-})
+});
