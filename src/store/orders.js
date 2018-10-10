@@ -20,6 +20,14 @@ export const _loadOrders = () => dispatch => (
     .catch(err => {
       throw err;
     })
+);
+
+export const _createLineItem = (orderId, productId) => dispatch => (
+  axios.post(`/api/orders/${orderId}/lineItems`, { productId })
+    .then(() => dispatch(_loadOrders()))
+    .catch(err => {
+      throw err;
+    })
 )
 
 const reducer = (state = [], action) => {
