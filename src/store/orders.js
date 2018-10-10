@@ -25,7 +25,6 @@ export const _loadOrders = () => dispatch => (
 const reducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_ORDERS:
-      console.log(action.orders);
       return action.orders;
     default:
       return state;

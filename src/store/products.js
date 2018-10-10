@@ -22,11 +22,14 @@ export const _loadProducts = () => dispatch => (
     })
 )
 
-const reducer = (state = [], action) => {
+const reducer = (state = {}, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
-      console.log(action.products);
-      return action.products;
+      return action.products.reduce((memo, product) => {
+        const { id, ...productWithoutId } = product;
+        memo[product.id] = productWithoutId;
+        return memo;
+      }, {})
     default:
       return state;
   }

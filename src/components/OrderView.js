@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Order from './Order';
 
 class OrderView extends Component {
   render = () => (
     <div>
       <ul>
         {this.props.orders.map(order => (
-          <li key={order.id}>{order.id}</li>
+          <Order key={order.id} order={order} />
         ))}
       </ul>
     </div>
