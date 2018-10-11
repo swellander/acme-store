@@ -24,7 +24,6 @@ class CartView extends Component {
 }
 
 const mapStateToProps = ({ products, orders }) => {
-  console.log(orders);
   return {
     products,
     order: orders.find(order => order.status == 'CART')

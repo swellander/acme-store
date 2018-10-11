@@ -29,6 +29,19 @@ export const _createLineItem = (orderId, productId) => dispatch => (
       throw err;
     })
 )
+export const _updateLineItem = (lineItem, direction) => dispatch => {
+  const update = { quantity: lineItem.quantity };
+  if (direction == 'plus') update.quantity++;
+  else update.quantity--;
+
+  axios.put(`api/orders/${lineItem.orderId}/lineItems/${lineItem.id}`, update)
+    .then(() => {
+      dispatch(_loadOrders())
+    })
+    .catch(err => {
+      throw err;
+    })
+}
 
 const reducer = (state = [], action) => {
   switch (action.type) {
