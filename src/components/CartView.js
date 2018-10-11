@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Product from './Product';
+import { _placeOrder } from '../store/orders';
 
 class CartView extends Component {
+  handleClick = () => {
+    const { placeOrder, order } = this.props;
+    placeOrder(order.id);
+  }
   render = () => {
     const { products, order } = this.props;
     return (
@@ -18,6 +23,7 @@ class CartView extends Component {
             ))
           }
         </ul>
+        <button onClick={this.handleClick}>Place Order</button>
       </div>
     )
   }
@@ -29,5 +35,10 @@ const mapStateToProps = ({ products, orders }) => {
     order: orders.find(order => order.status == 'CART')
   }
 }
+const mapDispatchToProps = dispatch => {
+  return {
+    placeOrder: id => dispatch(_placeOrder(id))
+  }
+}
 
-export default connect(mapStateToProps)(CartView);
+export default connect(mapStateToProps, mapDispatchToProps)(CartView);

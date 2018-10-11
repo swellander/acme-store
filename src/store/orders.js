@@ -43,6 +43,13 @@ export const _updateLineItem = (lineItem, direction) => dispatch => {
     })
 }
 
+export const _placeOrder = id => dispatch => (
+  axios.put(`/api/orders/${id}`, { status: 'ORDER' })
+    .then(() => {
+      dispatch(_loadOrders())
+    })
+)
+
 const reducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_ORDERS:
