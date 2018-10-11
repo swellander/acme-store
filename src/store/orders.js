@@ -14,6 +14,7 @@ export const _loadOrders = () => dispatch => (
   axios.get('/api/orders')
     .then(response => response.data)
     .then(orders => {
+      console.log(orders);
       const action = loadOrders(orders);
       dispatch(action);
     })

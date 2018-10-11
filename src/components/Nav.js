@@ -18,7 +18,7 @@ const mapStateToProps = ({ orders }) => {
   const cart = orders.find(order => order.status == 'CART');
   return {
     cartSize: cart ? cart.lineItems.reduce((total, item) => total + item.quantity, 0) : 0,
-    numOrders: orders.length
+    numOrders: orders.filter(order => order.status !== 'CART').length
   }
 }
 

@@ -16,7 +16,7 @@ class OrderView extends Component {
 
 const mapStateToProps = ({ orders }) => {
   return {
-    orders,
+    orders: orders.filter(order => order.status !== 'CART'),
   }
 }
 
