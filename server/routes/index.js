@@ -25,7 +25,8 @@ router.get('/orders', async (req, res, next) => {
     const cart = await Order.findOne({
       where: {
         status: 'CART'
-      }
+      },
+      order: [['updatedAt', 'DESC']],
     });
     if (!cart) await Order.create({})
     const orders = await Order.findAll({
