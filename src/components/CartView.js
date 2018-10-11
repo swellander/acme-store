@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Product from './Product';
 import { _placeOrder } from '../store/orders';
+import { Button } from '@material-ui/core';
 
 class CartView extends Component {
   state = {
@@ -31,7 +32,7 @@ class CartView extends Component {
               ))
             }
           </ul>
-          <button onClick={this.handleClick}>Place Order</button>
+          <Button onClick={this.handleClick}>Place Order</Button>
         </div>
       )
     }

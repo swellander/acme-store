@@ -29,6 +29,15 @@ export const _createLineItem = (orderId, productId) => dispatch => (
     .catch(err => {
       throw err;
     })
+);
+export const _removeLineItem = (id, orderId) => dispatch => (
+  axios.delete(`/api/orders/${orderId}/lineItems/${id}`)
+    .then(() => {
+      dispatch(_loadOrders())
+    })
+    .catch(err => {
+      throw err;
+    })
 )
 export const _updateLineItem = (lineItem, direction) => dispatch => {
   const update = { quantity: lineItem.quantity };

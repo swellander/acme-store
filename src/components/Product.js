@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { _createLineItem, _updateLineItem } from '../store/orders';
+import { _createLineItem, _updateLineItem, _removeLineItem } from '../store/orders';
+import { Button } from '@material-ui/core';
 
 class Product extends Component {
   handleClick = (direction) => {
-    const { create, update } = this.props;
-    if (!this.props.lineItem) create();
+    const { lineItem, create, update, remove } = this.props;
+    if (!lineItem) create();
+    else if (lineItem.quantity == 1 && direction == 'minus') remove();
     else update(direction);
   }
   render = () => {
@@ -14,8 +16,8 @@ class Product extends Component {
     return (
       <div>
         <h3>x{quantity} {product.name}</h3>
-        <button onClick={() => this.handleClick('plus')}>+</button>
-        <button onClick={() => this.handleClick('minus')}>-</button>
+        <Button variant="contained" onClick={() => this.handleClick('plus')}>+</Button>
+        <Button disabled={quantity == 0} variant="contained" onClick={() => this.handleClick('minus')}>-</Button>
       </div>
     )
   }
@@ -27,7 +29,8 @@ const mapDispatchToProps = (dispatch, { order, product }) => {
   return {
     lineItem,
     create: () => dispatch(_createLineItem(order.id, product.id)),
-    update: direction => dispatch(_updateLineItem(lineItem, direction))
+    update: direction => dispatch(_updateLineItem(lineItem, direction)),
+    remove: () => dispatch(_removeLineItem(lineItem.id, order.id))
   }
 }
 
