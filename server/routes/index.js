@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { syncSeed } = require('../db');
 const { Order, Product, LineItem } = require('../db').models;
 
 router.get('/products', (req, res, next) => {
@@ -25,8 +26,7 @@ router.get('/orders', async (req, res, next) => {
     const cart = await Order.findOne({
       where: {
         status: 'CART'
-      },
-      order: [['updatedAt', 'DESC']],
+      }
     });
     if (!cart) await Order.create({})
     const orders = await Order.findAll({
@@ -71,5 +71,11 @@ router.delete('/orders/:orderId/lineItems/:id', (req, res, next) => {
     .then(() => res.sendStatus(202))
     .catch(next)
 });
+router.delete('/', (req, res, next) => {
+  syncSeed().then(() => res.sendStatus(202)).catch((err) => {
+    console.log(err);
+    next(err)
+  })
+})
 
 module.exports = router;

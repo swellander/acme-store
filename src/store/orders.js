@@ -1,5 +1,17 @@
 import axios from 'axios';
 
+// const sortOrders = orders => {
+//   console.log('yooo')
+//   const sorted = orders.sort((a, b) => {
+//     const aDate = new Date(a.updatedAt);
+//     const bDate = new Date(b.updatedAt);
+//     console.log(aDate);
+//     return aDate - bDate;
+//   })
+//   console.log(sorted);
+//   return sorted;
+// }
+
 //ACTION TYPES
 const LOAD_ORDERS = 'LOAD_ORDERS';
 
@@ -14,7 +26,6 @@ export const _loadOrders = () => dispatch => (
   axios.get('/api/orders')
     .then(response => response.data)
     .then(orders => {
-      console.log(orders);
       const action = loadOrders(orders);
       dispatch(action);
     })
@@ -22,7 +33,6 @@ export const _loadOrders = () => dispatch => (
       throw err;
     })
 );
-
 export const _createLineItem = (orderId, productId) => dispatch => (
   axios.post(`/api/orders/${orderId}/lineItems`, { productId })
     .then(() => dispatch(_loadOrders()))
@@ -52,14 +62,21 @@ export const _updateLineItem = (lineItem, direction) => dispatch => {
       throw err;
     })
 }
-
 export const _placeOrder = id => dispatch => (
   axios.put(`/api/orders/${id}`, { status: 'ORDER' })
     .then(() => {
       dispatch(_loadOrders())
     })
 )
-
+export const _reset = () => dispatch => (
+  axios.delete('/api')
+    .then(() => {
+      dispatch(_loadOrders());
+    })
+    .catch(err => {
+      throw err;
+    })
+)
 const reducer = (state = [], action) => {
   switch (action.type) {
     case LOAD_ORDERS:

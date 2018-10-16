@@ -10,7 +10,6 @@ class Order extends Component {
         <ul>
           {order.lineItems.map(lineItem => {
             const product = products[lineItem.productId];
-            console.log(product);
             return <li key={lineItem.id}>{product.name} x {lineItem.quantity}</li>
           })}
         </ul>

@@ -25,7 +25,6 @@ class Product extends Component {
 
 const mapDispatchToProps = (dispatch, { order, product }) => {
   const lineItem = order ? order.lineItems.find(item => item.productId == product.id) : undefined;
-  if (lineItem) console.log(lineItem.id)
   return {
     lineItem,
     create: () => dispatch(_createLineItem(order.id, product.id)),

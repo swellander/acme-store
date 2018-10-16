@@ -38,27 +38,11 @@ LineItem.belongsTo(Order);
 
 const syncSeed = async () => {
   await conn.sync({ force: true })
-  const [orderOne, orderTwo, orderThree] = await Promise.all([
-    Order.create({ status: 'CART' }),
-    Order.create({ status: 'ORDER' }),
-  ]);
   const [drone, trampoline, trebuche] = await Promise.all([
     Product.create({ name: 'Drone' }),
     Product.create({ name: 'Trampoline' }),
-    Product.create({ name: 'Trebuche' }),
+    Product.create({ name: 'Trebuchet' }),
   ]);
-  const [itemOne, itemTwo, itemThree] = await Promise.all([
-    LineItem.create({ quantity: 1 }),
-    LineItem.create({ quantity: 2 }),
-    LineItem.create({ quantity: 3 })
-  ]);
-
-  await itemOne.setProduct(drone);
-  await itemOne.setOrder(orderOne);
-  await itemTwo.setProduct(trampoline);
-  await itemTwo.setOrder(orderOne);
-  await itemThree.setProduct(trebuche);
-  await itemThree.setOrder(orderThree);
 }
 
 module.exports = {
