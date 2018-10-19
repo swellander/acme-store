@@ -3,6 +3,7 @@ import { Route, withRouter } from 'react-router-dom';
 import Nav from './Nav';
 import CartView from './CartView';
 import OrderView from './OrderView';
+import Login from './Login';
 import { _loadOrders } from '../store/orders';
 import { _loadProducts } from '../store/products';
 import { connect } from 'react-redux';
@@ -17,6 +18,7 @@ class Main extends Component {
         <Nav />
         <Route path='/cart' component={CartView} />
         <Route path='/orders' component={OrderView} />
+        <Route path='/login' component={Login} />
       </div>
     )
   }

@@ -3,6 +3,20 @@ const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/acm
 
 //MODELS
 //================================================
+const User = conn.define('user', {
+  email: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      isEmail: true,
+      notEmpty: true
+    }
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  }
+})
 const Product = conn.define('product', {
   name: {
     type: Sequelize.STRING,
@@ -31,6 +45,8 @@ const LineItem = conn.define('lineItem', {
 
 //ASSOCIATIONS
 //======================================
+User.hasMany(Order);
+Order.belongsTo(User);
 Product.hasMany(LineItem);
 LineItem.belongsTo(Product);
 Order.hasMany(LineItem);
@@ -38,16 +54,18 @@ LineItem.belongsTo(Order);
 
 const syncSeed = async () => {
   await conn.sync({ force: true })
-  const [drone, trampoline, trebuche] = await Promise.all([
+  const [drone, trampoline, trebuche, john] = await Promise.all([
     Product.create({ name: 'Drone' }),
     Product.create({ name: 'Trampoline' }),
     Product.create({ name: 'Trebuchet' }),
+    User.create({ email: 'jd@sloth.com', password: '123456789' })
   ]);
 }
 
 module.exports = {
   syncSeed,
   models: {
+    User,
     Product,
     Order,
     LineItem

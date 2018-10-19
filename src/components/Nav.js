@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { _reset } from '../store/orders';
 import { Typography, Button } from '@material-ui/core';
-import { TabContainer, Tab, Tabs } from '@material-ui/core';
+import { Tab, Tabs } from '@material-ui/core';
 
 class Nav extends Component {
   state = {
@@ -27,6 +27,7 @@ class Nav extends Component {
         <Tabs value={value} onChange={this.handleChange}>
           <Tab to="/cart" component={Link} label={`Cart(${cartSize})`} />
           <Tab to='/orders' component={Link} label={`Orders(${numOrders})`} />
+          <Tab to='/login' component={Link} label={`Login`} />
         </Tabs>
         <div>
           <Typography variant="display1">

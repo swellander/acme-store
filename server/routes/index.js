@@ -2,6 +2,8 @@ const router = require('express').Router();
 const { syncSeed } = require('../db');
 const { Order, Product, LineItem } = require('../db').models;
 
+router.use('/auth', require('./auth'))
+
 router.get('/products', (req, res, next) => {
   Product.findAll({
     include: [LineItem]
